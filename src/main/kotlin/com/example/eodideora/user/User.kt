@@ -15,9 +15,9 @@ data class User(
 
     @Transient
     @Value("null")
-    var items: List<Item>? = null,
+    val items: List<Item>? = null,
 
     @Transient
     @Value("null")
-    var places: List<Place>? = null
+    val places: List<Place>? = null
 )

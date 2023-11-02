@@ -20,4 +20,4 @@ data class Place (
     @Transient
     @Value("null")
     val items: List<Item>? = null
-) {}
+)
