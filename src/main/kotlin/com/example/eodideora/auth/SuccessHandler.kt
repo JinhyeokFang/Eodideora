@@ -23,11 +23,10 @@ class SuccessHandler(
         webFilterExchange: WebFilterExchange?,
         authentication: Authentication?
     ): Mono<Void> {
-        logger.info(authentication!!.principal.toString())
-        val principal: OAuth2User = authentication.principal as OAuth2User
+        val principal: OAuth2User = authentication!!.principal as OAuth2User
         val attributes = principal.attributes
         val response = webFilterExchange!!.exchange.response
-        logger.info(attributes.get("email") as String)
+        response.headers.set("Authorization", attributes.toString())
         response.setStatusCode(HttpStatus.PERMANENT_REDIRECT)
         response.headers.location = URI.create(clientOrigin as String)
         return response.setComplete()
