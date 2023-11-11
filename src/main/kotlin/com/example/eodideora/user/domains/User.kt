@@ -1,4 +1,4 @@
-package com.example.eodideora.user
+package com.example.eodideora.user.domains
 
 import com.example.eodideora.item.Item
 import com.example.eodideora.place.Place

@@ -32,7 +32,6 @@ class SuccessHandler(
         val attributes = principal.attributes
         val token = jwtProvider.createToken(JwtType.REFRESH_TOKEN, attributes["email"] as String)
         val response = webFilterExchange!!.exchange.response
-        response.headers.set("Authorization", attributes.toString())
         response.setStatusCode(HttpStatus.PERMANENT_REDIRECT)
         response.headers.location = URI.create(clientOrigin as String)
         runBlocking {
