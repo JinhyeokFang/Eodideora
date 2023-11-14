@@ -1,6 +1,6 @@
-package com.example.eodideora.item
+package com.example.eodideora.item.domains
 
-import com.example.eodideora.place.Place
+import com.example.eodideora.place.domains.Place
 import com.example.eodideora.user.domains.User
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.annotation.Id
