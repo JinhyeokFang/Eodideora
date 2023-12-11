@@ -2,10 +2,12 @@ package com.example.eodideora.auth
 
 import com.example.eodideora.util.JwtProvider
 import com.example.eodideora.util.JwtType
-import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.context.ReactiveSecurityContextHolder
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.server.ServerWebExchange
@@ -13,17 +15,20 @@ import org.springframework.web.server.WebFilter
 import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 
-
 @Configuration
 class AccessTokenFilter(
-    private val jwtProvider: JwtProvider
+    private val jwtProvider: JwtProvider,
 ): WebFilter {
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
         val bearer = exchange.request.headers["Authorization"]
         if (bearer != null && bearer.size > 0) {
+            val authorities = mutableListOf<SimpleGrantedAuthority>()
+            authorities.add(SimpleGrantedAuthority("ROLE_USER"))
+            val authentication: Authentication = UsernamePasswordAuthenticationToken("id", null, authorities);
+            return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
             parseToken(bearer[0])
         }
-        return chain.filter(exchange)
+        return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.clearContext())
     }
 
     private fun parseToken(bearer: String) {

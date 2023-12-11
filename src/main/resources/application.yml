@@ -19,3 +19,9 @@ spring:
 
 server:
   port: ${PORT}
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

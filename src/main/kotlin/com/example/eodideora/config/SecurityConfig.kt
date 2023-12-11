@@ -9,8 +9,11 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.config.web.server.invoke
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
+import org.springframework.security.core.Authentication
 import org.springframework.security.web.server.SecurityWebFilterChain
+import org.springframework.security.web.server.authentication.ServerAuthenticationConverter
+import org.springframework.web.server.ServerWebExchange
+import reactor.core.publisher.Mono
 
 @Configuration
 @EnableWebFluxSecurity
@@ -23,15 +26,22 @@ class SecurityConfig(
         return httpSecurity {
             authorizeExchange {
                 authorize("/token", permitAll)
+                authorize("/oauth2/**", permitAll)
                 authorize(anyExchange, authenticated)
             }
-            addFilterBefore(AccessTokenFilter(jwtProvider), SecurityWebFiltersOrder.AUTHORIZATION)
+            formLogin {
+                disable()
+            }
+            httpBasic {
+                disable()
+            }
             csrf {
                 disable()
             }
             cors {
                 disable()
             }
+            addFilterBefore(AccessTokenFilter(jwtProvider), SecurityWebFiltersOrder.AUTHENTICATION)
             oauth2Login {
                 authenticationSuccessHandler = successHandler
             }

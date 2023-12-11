@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.web.server.WebFilterExchange
 import org.springframework.security.web.server.authentication.ServerAuthenticationSuccessHandler
@@ -34,6 +35,8 @@ class SuccessHandler(
         val response = webFilterExchange!!.exchange.response
         response.setStatusCode(HttpStatus.PERMANENT_REDIRECT)
         response.headers.location = URI.create(clientOrigin as String)
+        SecurityContextHolder.clearContext()
+
         runBlocking {
             webFilterExchange.exchange.session.subscribe {
                 session -> session.attributes.set("refresh-token", token)

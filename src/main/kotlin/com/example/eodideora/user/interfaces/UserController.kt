@@ -4,6 +4,7 @@ import com.example.eodideora.util.JwtProvider
 import com.example.eodideora.util.JwtType
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.server.WebSession
@@ -26,6 +27,11 @@ class UserController(
 
     @GetMapping("/test")
     suspend fun test(): String {
+        return "accessToken"
+    }
+
+    @PostMapping("/test")
+    suspend fun test2(): String {
         return "accessToken"
     }
 }
