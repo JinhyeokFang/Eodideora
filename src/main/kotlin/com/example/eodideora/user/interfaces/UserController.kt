@@ -1,5 +1,6 @@
 package com.example.eodideora.user.interfaces
 
+import com.example.eodideora.common.exception.GeneralException
 import com.example.eodideora.util.JwtProvider
 import com.example.eodideora.util.JwtType
 import org.springframework.http.HttpStatus
@@ -32,6 +33,7 @@ class UserController(
 
     @PostMapping("/test")
     suspend fun test2(): String {
+        throw GeneralException("hi", 0, HttpStatus.CONFLICT)
         return "accessToken"
     }
 }
