@@ -1,8 +1,8 @@
 package com.example.eodideora.user.interfaces
 
 import com.example.eodideora.common.exception.GeneralException
-import com.example.eodideora.util.JwtProvider
-import com.example.eodideora.util.JwtType
+import com.example.eodideora.common.jwt.JwtProvider
+import com.example.eodideora.common.jwt.JwtType
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping

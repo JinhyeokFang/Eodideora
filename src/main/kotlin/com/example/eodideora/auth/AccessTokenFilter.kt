@@ -1,7 +1,7 @@
 package com.example.eodideora.auth
 
-import com.example.eodideora.util.JwtProvider
-import com.example.eodideora.util.JwtType
+import com.example.eodideora.common.jwt.JwtProvider
+import com.example.eodideora.common.jwt.JwtType
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken

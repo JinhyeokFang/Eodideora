@@ -1,8 +1,7 @@
 package com.example.eodideora.auth
 
-import com.example.eodideora.util.JwtProvider
-import com.example.eodideora.util.JwtType
-import kotlinx.coroutines.reactor.awaitSingle
+import com.example.eodideora.common.jwt.JwtProvider
+import com.example.eodideora.common.jwt.JwtType
 import kotlinx.coroutines.runBlocking
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

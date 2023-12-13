@@ -1,4 +1,4 @@
-package com.example.eodideora.util
+package com.example.eodideora.common.jwt
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Header
